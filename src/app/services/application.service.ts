@@ -11,7 +11,7 @@ import { BaseService } from './base.service';
 export class ApplicationService extends BaseService {
 
   constructor() {
-    super();
+    super(null);
   }
 
   public list(): Observable<Application[]> {

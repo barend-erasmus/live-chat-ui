@@ -15,9 +15,9 @@ export class HomeRouteComponent implements OnInit {
   constructor(
     private chatService: ChatService,
   ) {
-    this.loadChats();
+    // this.loadChats();
 
-    this.chatService.events().subscribe((event: Event) => this.handleEvent(event));
+    // this.chatService.events().subscribe((event: Event) => this.handleEvent(event));
   }
 
   public ngOnInit(): void {

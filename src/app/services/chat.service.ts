@@ -9,7 +9,7 @@ import { Event } from '../models/event';
 export class ChatService extends BaseService {
 
   constructor() {
-    super();
+    super(null);
   }
 
   public events(): Observable<Event> {

@@ -1,10 +1,13 @@
+import { TeamOwner } from './team-owner';
+import { TeamParticipant } from './team-participant';
+
 export class Team {
 
     constructor(
-        public accepted: boolean,
         public id: number,
         public name: string,
-        public owner: string,
+        public owner: TeamOwner,
+        public participants: TeamParticipant[],
     ) {
 
     }

@@ -15,20 +15,40 @@
                     <div class="input-group custom-search-form">
                         <input type="text" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+                            <button class="btn btn-default" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
                     </div>
                 </li>
                 <li>
-                    <a href="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="/">
+                        <i class="fa fa-dashboard fa-fw"></i>
+                        Dashboard
+                    </a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-flask fa-fw"></i> Applications<span class="fa arrow"></span></a>
+                    <a href="#">
+                        <i class="fa fa-flask fa-fw"></i> Applications
+                        <span class="fa fa-caret-down pull-right"></span>
+                    </a>
                     <ul class="nav nav-second-level">
                         <li *ngFor="let application of applications">
                             <a href="/application/edit/{{ application.id }}">{{ application.name }} ({{ application.team.name }})</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-users fa-fw"></i> Teams
+                        <span class="fa fa-caret-down pull-right"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="/team/create">Create new team</a>
+                        </li>
+                        <li *ngFor="let team of teams">
+                            <a href="/team/edit/{{ team.id }}">{{ team.name }}</a>
                         </li>
                     </ul>
                 </li>

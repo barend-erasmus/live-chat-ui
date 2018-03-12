@@ -1,0 +1,24 @@
+<app-side-menu></app-side-menu>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Team - Create</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Team Details</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input [(ngModel)]="team.name" class="form-control">
+                        <p class="help-block">Enter your team name.</p>
+                    </div>
+                    <button (click)="onClickSave()" class="btn btn-success">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

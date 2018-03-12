@@ -13,14 +13,18 @@ export class SideMenuComponent implements OnInit {
 
   public applications: Application[] = [];
 
+  public teams: Team[] = [];
+
   constructor(
     private applicationService: ApplicationService,
+    private teamService: TeamService,
   ) {
 
    }
 
   public ngOnInit(): void {
-    this.loadApplications();
+    // this.loadApplications();
+    this.loadTeams();
   }
 
   public loadApplications(): void {
@@ -28,4 +32,11 @@ export class SideMenuComponent implements OnInit {
       this.applications = applications;
     });
   }
+
+  public loadTeams(): void {
+    this.teamService.list().subscribe((teams) => {
+      this.teams = teams;
+    });
+  }
+
 }

@@ -1,91 +1,54 @@
-import PouchDB from 'pouchdb';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import { Application } from '../models/application';
-import { Team } from '../models/team';
-import { Chat } from '../models/chat';
-import { MetaDatum } from '../models/meta-datum';
+import { environment } from '../../environments/environment';
+import * as urlJoin from 'url-join';
+import { tap } from 'rxjs/operators';
 
+@Injectable()
 export class BaseService {
 
-    protected liveChatDB = new PouchDB('live-chat');
+  constructor(protected http: HttpClient) {
 
-    private n = 6;
+  }
 
-    constructor() {
-    }
+  protected delete<T>(uri: string): Observable<T> {
+    return this.http.delete<T>(urlJoin(environment.api.uri, uri), {
+      headers: this.getHeaders(),
+    }).pipe(tap((result: any) => {
+      console.log(`GET: ${uri}`);
+    }));
+  }
 
-    protected get(id: string): Observable<any> {
-        return Observable.fromPromise(this.initialize()).mergeMap(() => {
-            return Observable.fromPromise(this.liveChatDB.get(`${id}-${this.n}`));
-        }).map((doc: { items: Application[] }) => {
-            return doc.items;
-        });
-    }
+  protected get<T>(uri: string): Observable<T> {
+    return this.http.get<T>(urlJoin(environment.api.uri, uri), {
+      headers: this.getHeaders(),
+    }).pipe(tap((result: any) => {
+      console.log(`GET: ${uri}`);
+    }));
+  }
 
-    protected initialize(): Promise<void> {
-        return this.liveChatDB.get(`info-${this.n}`).then((doc) => {
-            if (!doc) {
-                return Promise.all([
-                    this.insertInfo(),
-                    this.insertApplications(),
-                    this.insertChats(),
-                    this.insertTeams(),
-                ]);
-            }
-        }).catch(() => {
-            return Promise.all([
-                this.insertInfo(),
-                this.insertApplications(),
-                this.insertChats(),
-                this.insertTeams(),
-            ]);
-        });
-    }
+  protected getHeaders(): HttpHeaders {
+    const headers = new HttpHeaders({
+      'authorization': `Bearer ${localStorage.getItem('token')}`,
+    });
 
-    private insertApplications(): Promise<void> {
-        return this.liveChatDB.put({
-            _id: `applications-${this.n}`,
-            items: [
-                new Application(1, 'Application 1', new Team(true, 1, 'Team 1', 'john-smith@example.com')),
-                new Application(2, 'Application 2', new Team(true, 1, 'Team 1', 'john-smith@example.com')),
-                new Application(3, 'Application 3', new Team(true, 1, 'Team 1', 'john-smith@example.com')),
-                new Application(4, 'Application 4', new Team(true, 1, 'Team 1', 'john-smith@example.com')),
-            ],
-        });
-    }
+    return headers;
+  }
 
-    private insertChats(): Promise<void> {
-        return this.liveChatDB.put({
-            _id: `chats-${this.n}`,
-            items: [
-               new Chat(new Application(1, 'Application 1', new Team(true, 1, 'Team 1', 'john-smith@example.com')), 1, [
-                   new MetaDatum('userName', 'developersworkspace@gmail.com'),
-                   new MetaDatum('billed-amount', '$45.86'),
-               ], 5, 'john-smith@example.com', 'c573c609-37fd-4ba1-b927-21144b96cd5e'),
-               new Chat(new Application(2, 'Application 2', new Team(true, 1, 'Team 1', 'john-smith@example.com')), 2, [], 6, 'john-smith@example.com', '208fcd77-9f85-4498-9d50-dbe8ea75d9c6'),
-               new Chat(new Application(4, 'Application 4', new Team(true, 1, 'Team 1', 'john-smith@example.com')), 3, [], 9, 'john-smith@example.com', 'edb23ea5-8fd4-43a9-b411-90c554903a07'),
-               new Chat(new Application(3, 'Application 3', new Team(true, 1, 'Team 1', 'john-smith@example.com')), 4, [], 2, 'john-smith@example.com', '24439f99-d991-4f75-ac8a-d43fb841e925'),
-               new Chat(new Application(4, 'Application 4', new Team(true, 1, 'Team 1', 'john-smith@example.com')), 5, [], 4, 'john-smith@example.com', '1bf4b139-7114-4120-b0ea-a51be70423e5'),
-            ],
-        });
-    }
+  protected post<T>(uri: string, data: any): Observable<T> {
+    return this.http.post<T>(urlJoin(environment.api.uri, uri), data, {
+      headers: this.getHeaders(),
+    }).pipe(tap((result: any) => {
+      console.log(`POST: ${uri}`);
+    }));
+  }
 
-    private insertInfo(): Promise<void> {
-        return this.liveChatDB.put({
-            _id: `info-${this.n}`,
-        });
-    }
-
-    private insertTeams(): Promise<void> {
-        return this.liveChatDB.put({
-            _id: `teams-${this.n}`,
-            items: [
-                new Team(true, 1, 'Team 1', 'john-smith@example.com'),
-                new Team(false, 2, 'Team 2', 'john-smith@example.com'),
-                new Team(false, 3, 'Team 3', 'john-smith@example.com'),
-            ]
-        });
-    }
+  protected put<T>(uri: string, data: any): Observable<T> {
+    return this.http.put<T>(urlJoin(environment.api.uri, uri), data, {
+      headers: this.getHeaders(),
+    }).pipe(tap((result: any) => {
+      console.log(`PUT: ${uri}`);
+    }));
+  }
 }
