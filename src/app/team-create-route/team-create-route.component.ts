@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Team } from '../models/team';
 import { TeamService } from '../services/team.service';
+import { TypeaheadMatch } from 'ngx-bootstrap';
+import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../models/user';
+import { TeamParticipant } from '../models/team-participant';
 
 @Component({
   selector: 'app-team-create-route',
@@ -10,13 +15,24 @@ import { TeamService } from '../services/team.service';
 })
 export class TeamCreateRouteComponent implements OnInit {
 
-  public team: Team = new Team(null, null, null, null);
+  public team: Team = new Team(null, null, null, []);
+
+  public participantTypeaheadDataSource: Observable<any[]> = null;
+
+  public participantTypeaheadSelectedItem: User = null;
+
+  public participantTypeaheadText: string = null;
 
   constructor(
     private router: Router,
     private teamService: TeamService,
+    private userService: UserService,
   ) {
-
+    this.participantTypeaheadDataSource = Observable.create((observer: any) => {
+      observer.next(this.participantTypeaheadText);
+    }).mergeMap((token: string) => {
+      return this.userService.list();
+    });
   }
 
   public ngOnInit(): void {
@@ -27,6 +43,36 @@ export class TeamCreateRouteComponent implements OnInit {
     this.teamService.create(this.team).subscribe((team: Team) => {
       this.router.navigateByUrl(`/team/edit/${team.id}`);
     });
+  }
+
+  public onClickAddParticipant(): void {
+    if (!this.participantTypeaheadText) {
+      return;
+    }
+
+    if (this.team.participants.find((participant) => participant.id === this.participantTypeaheadSelectedItem.id)) {
+      return;
+    }
+
+    this.team.participants.push(
+      new TeamParticipant(
+        false,
+        this.participantTypeaheadSelectedItem.emailAddress,
+        this.participantTypeaheadSelectedItem.displayName,
+        this.participantTypeaheadSelectedItem.id,
+      ));
+
+    this.participantTypeaheadText = null;
+  }
+
+  public onClickRemoveParticipant(participant: TeamParticipant): void {
+    const index: number = this.team.participants.indexOf(participant);
+
+    this.team.participants.splice(index, 1);
+  }
+
+  public onSelectParticipant(item: TypeaheadMatch): void {
+    this.participantTypeaheadSelectedItem = item.item;
   }
 
 }

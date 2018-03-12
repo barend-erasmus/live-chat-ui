@@ -12,6 +12,8 @@ import { HomeRouteComponent } from './home-route/home-route.component';
 import { LoginRouteComponent } from './login-route/login-route.component';
 import { AuthGuard } from './auth.guard';
 import { TeamCreateRouteComponent } from './team-create-route/team-create-route.component';
+import { TypeaheadModule } from 'ngx-bootstrap';
+import { UserService } from './services/user.service';
 
 const appRoutes: Routes = [
   {
@@ -47,12 +49,14 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+    TypeaheadModule.forRoot(),
   ],
   providers: [
     ApplicationService,
     AuthGuard,
     ChatService,
     TeamService,
+    UserService,
   ],
   bootstrap: [AppComponent]
 })
