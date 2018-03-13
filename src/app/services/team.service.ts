@@ -11,13 +11,13 @@ export class TeamService extends BaseService {
     super(http);
   }
 
-  public create(team: Team): Observable<any> {
+  public create(team: Team): Observable<Team> {
     return this.post(`/team`, team);
   }
 
-  // public find(nutrientId: number): Observable<any> {
-  //   return this.get(`/nutrient/find?nutrientId=${nutrientId}`);
-  // }
+  public find(teamId: number): Observable<Team> {
+    return this.get(`/team?teamId=${teamId}`);
+  }
 
   public list(): Observable<Team[]> {
     return this.get(`/team`);

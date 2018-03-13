@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Team } from '../models/team';
 import { TeamService } from '../services/team.service';
 import { TypeaheadMatch } from 'ngx-bootstrap';
@@ -9,11 +9,11 @@ import { User } from '../models/user';
 import { TeamParticipant } from '../models/team-participant';
 
 @Component({
-  selector: 'app-team-create-route',
-  templateUrl: './team-create-route.component.html',
-  styleUrls: ['./team-create-route.component.css']
+  selector: 'app-team-edit-route',
+  templateUrl: './team-edit-route.component.html',
+  styleUrls: ['./team-edit-route.component.css']
 })
-export class TeamCreateRouteComponent implements OnInit {
+export class TeamEditRouteComponent implements OnInit {
 
   public team: Team = new Team(null, null, null, []);
 
@@ -24,6 +24,7 @@ export class TeamCreateRouteComponent implements OnInit {
   public participantTypeaheadText: string = null;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private teamService: TeamService,
     private userService: UserService,
@@ -36,13 +37,15 @@ export class TeamCreateRouteComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.loadTeam(params['teamId']);
+    });
   }
 
   public onClickSave(): void {
-    this.teamService.create(this.team).subscribe((team: Team) => {
-      this.router.navigateByUrl(`/team/edit/${team.id}`);
-    });
+    // this.teamService.create(this.team).subscribe((team: Team) => {
+    //   this.router.navigateByUrl(`/team/edit/${team.id}`);
+    // });
   }
 
   public onClickAddParticipant(): void {
@@ -73,6 +76,12 @@ export class TeamCreateRouteComponent implements OnInit {
 
   public onSelectParticipant(item: TypeaheadMatch): void {
     this.participantTypeaheadSelectedItem = item.item;
+  }
+
+  private loadTeam(teamId: number): void {
+    this.teamService.find(teamId).subscribe((team: Team) => {
+      this.team = team;
+    });
   }
 
 }

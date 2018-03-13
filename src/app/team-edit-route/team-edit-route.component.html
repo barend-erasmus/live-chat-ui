@@ -1,0 +1,61 @@
+<app-side-menu></app-side-menu>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Team - Edit</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Team Details</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input [(ngModel)]="team.name" class="form-control">
+                        <p class="help-block">Enter your team name.</p>
+                    </div>
+                    <div class="form-group">
+                      <label>Owner: </label>
+                      <span>{{ team.owner?.displayName }} ({{ team.owner?.emailAddress }})</span>
+                  </div>
+                    <label>Participants</label>
+                    <div class="form-group">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Email Address</th>
+                                    <th>Display Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input [(ngModel)]="participantTypeaheadText" [typeahead]="participantTypeaheadDataSource"
+                                            (typeaheadOnSelect)="onSelectParticipant($event)" [typeaheadOptionsLimit]="7" typeaheadOptionField="emailAddress"
+                                            placeholder="Enter email address or display name here" class="form-control">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <button (click)="onClickAddParticipant()" class="btn btn-success">Add</button>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let participant of team.participants">
+                                    <td>{{ participant.emailAddress }}</td>
+                                    <td>{{ participant.displayName }}</td>
+                                    <td>
+                                        <button (click)="onClickRemoveParticipant(participant)" class="btn btn-danger">Remove</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button (click)="onClickSave()" class="btn btn-success">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

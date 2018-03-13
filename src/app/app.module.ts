@@ -14,6 +14,7 @@ import { AuthGuard } from './auth.guard';
 import { TeamCreateRouteComponent } from './team-create-route/team-create-route.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import { UserService } from './services/user.service';
+import { TeamEditRouteComponent } from './team-edit-route/team-edit-route.component';
 
 const appRoutes: Routes = [
   {
@@ -31,6 +32,13 @@ const appRoutes: Routes = [
     ],
   },
   {
+    path: 'team/edit/:teamId',
+    component: TeamEditRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
     path: 'login',
     component: LoginRouteComponent,
   },
@@ -43,6 +51,7 @@ const appRoutes: Routes = [
     SideMenuComponent,
     LoginRouteComponent,
     TeamCreateRouteComponent,
+    TeamEditRouteComponent,
   ],
   imports: [
     BrowserModule,

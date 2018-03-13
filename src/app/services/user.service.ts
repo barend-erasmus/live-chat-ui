@@ -11,8 +11,8 @@ export class UserService extends BaseService {
     super(http);
   }
 
-  public list(): Observable<User[]> {
-    return this.get(`/user`);
+  public list(query: string): Observable<User[]> {
+    return this.get(`/user?query=${query}`);
   }
 
 }
