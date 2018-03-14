@@ -29,7 +29,7 @@ export class SideMenuComponent extends BaseComponent implements OnInit {
     // this.loadApplications();
     this.initialize().subscribe(() => {
       this.loadTeams();
-    })
+    });
   }
 
   public loadApplications(): void {
