@@ -17,9 +17,9 @@
                         <p class="help-block">Enter your team name.</p>
                     </div>
                     <div class="form-group">
-                      <label>Owner: </label>
-                      <span>{{ team.owner?.displayName }} ({{ team.owner?.emailAddress }})</span>
-                  </div>
+                        <label>Owner: </label>
+                        <span>{{ team.owner?.displayName }} ({{ team.owner?.emailAddress }})</span>
+                    </div>
                     <label>Participants</label>
                     <div class="form-group">
                         <table class="table table-striped">
@@ -33,9 +33,9 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input [(ngModel)]="participantTypeaheadText" [typeahead]="participantTypeaheadDataSource"
-                                            (typeaheadOnSelect)="onSelectParticipant($event)" [typeaheadOptionsLimit]="7" typeaheadOptionField="emailAddress"
-                                            placeholder="Enter email address or display name here" class="form-control">
+                                        <input [(ngModel)]="participantTypeaheadText" [typeahead]="participantTypeaheadDataSource" (typeaheadOnSelect)="onSelectParticipant($event)"
+                                            [typeaheadOptionsLimit]="7" typeaheadOptionField="emailAddress" placeholder="Enter email address or display name here"
+                                            class="form-control">
                                     </td>
                                     <td>
                                     </td>
@@ -47,13 +47,14 @@
                                     <td>{{ participant.emailAddress }}</td>
                                     <td>{{ participant.displayName }}</td>
                                     <td>
+                                        <button *ngIf="!participant.accepted" (click)="onClickAcceptParticipant(participant)" class="btn btn-primary">Accept</button>
                                         <button (click)="onClickRemoveParticipant(participant)" class="btn btn-danger">Remove</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <button (click)="onClickSave()" class="btn btn-success">Create</button>
+                    <button (click)="onClickSave()" class="btn btn-success">Save</button>
                 </div>
             </div>
         </div>

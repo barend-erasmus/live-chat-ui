@@ -43,9 +43,15 @@ export class TeamEditRouteComponent implements OnInit {
   }
 
   public onClickSave(): void {
-    // this.teamService.create(this.team).subscribe((team: Team) => {
-    //   this.router.navigateByUrl(`/team/edit/${team.id}`);
-    // });
+    this.teamService.update(this.team).subscribe((team: Team) => {
+      this.router.navigateByUrl(`/`);
+    });
+  }
+
+  public onClickAcceptParticipant(): void {
+    this.teamService.accept(this.team.id).subscribe((team: Team) => {
+      this.team = team;
+    });
   }
 
   public onClickAddParticipant(): void {

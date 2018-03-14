@@ -11,6 +11,10 @@ export class TeamService extends BaseService {
     super(http);
   }
 
+  public accept(teamId: number): Observable<Team> {
+    return this.get(`/team/accept?teamId=${teamId}`);
+  }
+
   public create(team: Team): Observable<Team> {
     return this.post(`/team`, team);
   }
@@ -23,8 +27,8 @@ export class TeamService extends BaseService {
     return this.get(`/team`);
   }
 
-  // public update(nutrient: any): Observable<any> {
-  //   return this.put(`/nutrient/update`, nutrient);
-  // }
+  public update(team: Team): Observable<Team> {
+    return this.put(`/team`, team);
+  }
 
 }
