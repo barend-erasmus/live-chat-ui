@@ -7,13 +7,14 @@ import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
 import { TeamParticipant } from '../models/team-participant';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-team-create-route',
   templateUrl: './team-create-route.component.html',
   styleUrls: ['./team-create-route.component.css']
 })
-export class TeamCreateRouteComponent implements OnInit {
+export class TeamCreateRouteComponent extends BaseComponent implements OnInit {
 
   public team: Team = new Team(null, null, null, []);
 
@@ -26,8 +27,10 @@ export class TeamCreateRouteComponent implements OnInit {
   constructor(
     private router: Router,
     private teamService: TeamService,
-    private userService: UserService,
+    userService: UserService,
   ) {
+    super(userService);
+
     this.participantTypeaheadDataSource = Observable.create((observer: any) => {
       observer.next(this.participantTypeaheadText);
     }).mergeMap((token: string) => {
@@ -36,7 +39,9 @@ export class TeamCreateRouteComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.initialize().subscribe(() => {
 
+    });
   }
 
   public onClickSave(): void {

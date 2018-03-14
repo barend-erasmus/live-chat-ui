@@ -47,14 +47,14 @@
                                     <td>{{ participant.emailAddress }}</td>
                                     <td>{{ participant.displayName }}</td>
                                     <td>
-                                        <button *ngIf="!participant.accepted" (click)="onClickAcceptParticipant(participant)" class="btn btn-primary">Accept</button>
-                                        <button (click)="onClickRemoveParticipant(participant)" class="btn btn-danger">Remove</button>
+                                        <button *ngIf="!participant.accepted && participant.emailAddress == user?.emailAddress" (click)="onClickAcceptParticipant(participant)" class="btn btn-primary">Accept</button>
+                                        <button *ngIf="team.owner?.emailAddress == user?.emailAddress" (click)="onClickRemoveParticipant(participant)" class="btn btn-danger">Remove</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <button (click)="onClickSave()" class="btn btn-success">Save</button>
+                    <button *ngIf="team.owner?.emailAddress == user?.emailAddress" (click)="onClickSave()" class="btn btn-success">Save</button>
                 </div>
             </div>
         </div>

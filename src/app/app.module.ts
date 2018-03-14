@@ -15,6 +15,7 @@ import { TeamCreateRouteComponent } from './team-create-route/team-create-route.
 import { TypeaheadModule } from 'ngx-bootstrap';
 import { UserService } from './services/user.service';
 import { TeamEditRouteComponent } from './team-edit-route/team-edit-route.component';
+import { ApplicationCreateRouteComponent } from './application-create-route/application-create-route.component';
 
 const appRoutes: Routes = [
   {
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     LoginRouteComponent,
     TeamCreateRouteComponent,
     TeamEditRouteComponent,
+    ApplicationCreateRouteComponent,
   ],
   imports: [
     BrowserModule,
