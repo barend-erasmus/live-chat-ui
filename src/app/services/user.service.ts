@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../models/user';
+import { User } from '../entities/user';
 
 @Injectable()
 export class UserService extends BaseService {

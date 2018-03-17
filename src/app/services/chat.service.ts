@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { Chat } from '../models/chat';
 import { BaseService } from './base.service';
-import { Event } from '../models/event';
+import { Event } from '../value-objects/event';
+import { Chat } from '../entities/chat';
 
 @Injectable()
 export class ChatService extends BaseService {

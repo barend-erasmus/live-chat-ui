@@ -31,6 +31,8 @@ export class LoginRouteComponent implements OnInit {
           this.router.navigateByUrl('/');
         } else {
           localStorage.removeItem('token');
+
+          // TODO: Move client id to config
           window.location.href = `https://developersworkspace.auth0.com/v2/logout` +
             `?returnTo=${encodeURI(environment.application.uri)}&` +
             `client_id=1ybUIVy6t24ldIXZIedgW5B3v1VIpkM1`;

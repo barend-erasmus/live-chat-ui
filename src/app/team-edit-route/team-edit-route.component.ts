@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Team } from '../models/team';
 import { TeamService } from '../services/team.service';
 import { TypeaheadMatch } from 'ngx-bootstrap';
 import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../models/user';
-import { TeamParticipant } from '../models/team-participant';
 import { BaseComponent } from '../base/base.component';
+import { User } from '../entities/user';
+import { Team } from '../entities/team';
+import { TeamParticipantView } from '../entity-views/team-participant';
 
 @Component({
   selector: 'app-team-edit-route',
@@ -69,7 +69,7 @@ export class TeamEditRouteComponent extends BaseComponent implements OnInit {
     }
 
     this.team.participants.push(
-      new TeamParticipant(
+      new TeamParticipantView(
         false,
         this.participantTypeaheadSelectedItem.emailAddress,
         this.participantTypeaheadSelectedItem.displayName,
@@ -79,7 +79,7 @@ export class TeamEditRouteComponent extends BaseComponent implements OnInit {
     this.participantTypeaheadText = null;
   }
 
-  public onClickRemoveParticipant(participant: TeamParticipant): void {
+  public onClickRemoveParticipant(participant: TeamParticipantView): void {
     const index: number = this.team.participants.indexOf(participant);
 
     this.team.participants.splice(index, 1);

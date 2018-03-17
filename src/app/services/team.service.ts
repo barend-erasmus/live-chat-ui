@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Team } from '../models/team';
+import { Team } from '../entities/team';
 
 @Injectable()
 export class TeamService extends BaseService {

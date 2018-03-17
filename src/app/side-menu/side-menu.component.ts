@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Team } from '../models/team';
 import { TeamService } from '../services/team.service';
 import { ApplicationService } from '../services/application.service';
-import { Application } from '../models/application';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
+import { Application } from '../entities/application';
+import { Team } from '../entities/team';
 
 @Component({
   selector: 'app-side-menu',
@@ -26,7 +26,7 @@ export class SideMenuComponent extends BaseComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    // this.loadApplications();
+    this.loadApplications();
     this.initialize().subscribe(() => {
       this.loadTeams();
     });

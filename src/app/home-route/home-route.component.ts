@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Chat } from '../models/chat';
 import { ChatService } from '../services/chat.service';
-import { Event } from '../models/event';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
+import { Chat } from '../entities/chat';
 
 @Component({
   selector: 'app-home-route',
@@ -19,6 +18,7 @@ export class HomeRouteComponent extends BaseComponent implements OnInit {
     userService: UserService,
   ) {
     super(userService);
+    // TODO
     // this.loadChats();
 
     // this.chatService.events().subscribe((event: Event) => this.handleEvent(event));

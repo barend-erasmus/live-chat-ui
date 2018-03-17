@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Application } from '../models/application';
-import { Team } from '../models/team';
 import { BaseService } from './base.service';
+import { Application } from '../entities/application';
 
 @Injectable()
 export class ApplicationService extends BaseService {
 
-  constructor() {
-    super(null);
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   public list(): Observable<Application[]> {
-    return this.get('applications');
+    return this.get('/application');
   }
 }

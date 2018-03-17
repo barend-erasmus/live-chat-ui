@@ -1,7 +1,7 @@
 import { UserService } from '../services/user.service';
-import { User } from '../models/user';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
+import { User } from '../entities/user';
 
 export class BaseComponent {
 
