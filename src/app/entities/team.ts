@@ -1,5 +1,5 @@
-import { TeamOwnerView } from "../entity-views/team-owner";
-import { TeamParticipantView } from "../entity-views/team-participant";
+import { TeamOwnerView } from '../entity-views/team-owner';
+import { TeamParticipantView } from '../entity-views/team-participant';
 
 export class Team {
 

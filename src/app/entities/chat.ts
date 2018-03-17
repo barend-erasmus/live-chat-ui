@@ -1,6 +1,6 @@
-import { ApplicationView } from "../entity-views/application";
-import { MetaDatum } from "../value-objects/meta-datum";
-import { ChatOwnerView } from "../entity-views/chat-owner";
+import { ApplicationView } from '../entity-views/application';
+import { MetaDatum } from '../value-objects/meta-datum';
+import { ChatOwnerView } from '../entity-views/chat-owner';
 
 export class Chat {
 

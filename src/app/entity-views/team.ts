@@ -1,4 +1,4 @@
-import { TeamOwnerView } from "./team-owner";
+import { TeamOwnerView } from './team-owner';
 
 export class TeamView {
 
