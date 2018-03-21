@@ -3,6 +3,10 @@ import { ChatService } from '../services/chat.service';
 import { BaseComponent } from '../base/base.component';
 import { UserService } from '../services/user.service';
 import { Chat } from '../entities/chat';
+import { ApplicationService } from '../services/application.service';
+import { TeamService } from '../services/team.service';
+import { Team } from '../entities/team';
+import { Application } from '../entities/application';
 
 @Component({
   selector: 'app-home-route',
@@ -14,7 +18,9 @@ export class HomeRouteComponent extends BaseComponent implements OnInit {
   public chats: Chat[] = [];
 
   constructor(
+    private applicationService: ApplicationService,
     private chatService: ChatService,
+    private teamService: TeamService,
     userService: UserService,
   ) {
     super(userService);
@@ -37,8 +43,18 @@ export class HomeRouteComponent extends BaseComponent implements OnInit {
   }
 
   private loadChats(): void {
-    this.chatService.listUnread().subscribe((chats) => {
-      this.chats = chats;
+    this.chats = [];
+
+    this.teamService.list().subscribe((teams: Team[]) => {
+      for (const team of teams) {
+        this.applicationService.list(team.id).subscribe((applications: Application[]) => {
+          for (const application of applications) {
+            this.chatService.list(application.id).subscribe((chats) => {
+              this.chats.concat(chats);
+            });
+          }
+        });
+      }
     });
   }
 }

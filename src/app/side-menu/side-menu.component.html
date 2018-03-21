@@ -31,15 +31,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-flask fa-fw"></i> Applications
-                        <span class="fa fa-caret-down pull-right"></span>
+                    <a [routerLink]="['/application']">
+                        <i class="fa fa-flask fa-fw"></i>
+                        Applications
                     </a>
-                    <ul class="nav nav-second-level">
-                        <li *ngFor="let application of applications">
-                            <a [routerLink]="['/application/edit/' + application.id]">{{ application.name }} ({{ application.team.name }})</a>
-                        </li>
-                    </ul>
                 </li>
                 <li>
                     <a href="#">

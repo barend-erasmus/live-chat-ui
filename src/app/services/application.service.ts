@@ -11,7 +11,7 @@ export class ApplicationService extends BaseService {
     super(http);
   }
 
-  public list(): Observable<Application[]> {
-    return this.get('/application');
+  public list(teamId: number): Observable<Application[]> {
+    return this.get(`/application?teamId=${teamId}`);
   }
 }

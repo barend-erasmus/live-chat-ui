@@ -8,6 +8,7 @@ import { BaseComponent } from '../base/base.component';
 import { User } from '../entities/user';
 import { Team } from '../entities/team';
 import { TeamParticipantView } from '../entity-views/team-participant';
+import { ValidationMessage } from '../models/validation-message';
 
 @Component({
   selector: 'app-team-create-route',
@@ -23,6 +24,8 @@ export class TeamCreateRouteComponent extends BaseComponent implements OnInit {
   public participantTypeaheadSelectedItem: User = null;
 
   public participantTypeaheadText: string = null;
+
+  public validationMessages: ValidationMessage[] = [];
 
   constructor(
     private router: Router,
@@ -40,13 +43,15 @@ export class TeamCreateRouteComponent extends BaseComponent implements OnInit {
 
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
-
+      this.team.owner = this.user;
     });
   }
 
   public onClickSave(): void {
     this.teamService.create(this.team).subscribe((team: Team) => {
       this.router.navigateByUrl(`/team/edit/${team.id}`);
+    }, (err: any) => {
+      this.validationMessages = err.error;
     });
   }
 

@@ -30,14 +30,14 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input [(ngModel)]="participantTypeaheadText" [typeahead]="participantTypeaheadDataSource"
-                                            (typeaheadOnSelect)="onSelectParticipant($event)" [typeaheadOptionsLimit]="7" typeaheadOptionField="emailAddress"
-                                            placeholder="Enter email address or display name here" class="form-control">
+                                        <input [(ngModel)]="participantTypeaheadText" [typeahead]="participantTypeaheadDataSource" (typeaheadOnSelect)="onSelectParticipant($event)"
+                                            [typeaheadOptionsLimit]="7" typeaheadOptionField="emailAddress" placeholder="Enter email address or display name here"
+                                            class="form-control">
                                     </td>
                                     <td>
                                     </td>
                                     <td>
-                                        <button (click)="onClickAddParticipant()" class="btn btn-success">Add</button>
+                                        <button (click)="onClickAddParticipant()" class="btn btn-primary">Add</button>
                                     </td>
                                 </tr>
                                 <tr *ngFor="let participant of team.participants">
@@ -50,6 +50,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <p *ngFor="let validationMessage of validationMessages" class="text-danger">{{ validationMessage.message }}</p>
                     <button (click)="onClickSave()" class="btn btn-success">Save</button>
                 </div>
             </div>

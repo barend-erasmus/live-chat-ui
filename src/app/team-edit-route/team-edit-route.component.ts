@@ -8,6 +8,7 @@ import { BaseComponent } from '../base/base.component';
 import { User } from '../entities/user';
 import { Team } from '../entities/team';
 import { TeamParticipantView } from '../entity-views/team-participant';
+import { ValidationMessage } from '../models/validation-message';
 
 @Component({
   selector: 'app-team-edit-route',
@@ -23,6 +24,8 @@ export class TeamEditRouteComponent extends BaseComponent implements OnInit {
   public participantTypeaheadSelectedItem: User = null;
 
   public participantTypeaheadText: string = null;
+
+  public validationMessages: ValidationMessage[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -50,6 +53,8 @@ export class TeamEditRouteComponent extends BaseComponent implements OnInit {
   public onClickSave(): void {
     this.teamService.update(this.team).subscribe((team: Team) => {
       this.router.navigateByUrl(`/`);
+    }, (err: any) => {
+      this.validationMessages = err.error;
     });
   }
 
