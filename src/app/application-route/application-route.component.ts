@@ -35,7 +35,7 @@ export class ApplicationRouteComponent extends BaseComponent implements OnInit {
     this.teamService.list().subscribe((teams: Team[]) => {
       for (const team of teams) {
         this.applicationService.list(team.id).subscribe((applications: Application[]) => {
-          this.applications.concat(applications);
+          this.applications = this.applications.concat(applications);
         });
       }
     });

@@ -26,8 +26,9 @@
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td></td>
                   <td>
-                    <a class="btn btn-primary">Create</a>
+                    <a [routerLink]="['/application/create']" class="btn btn-primary">Create</a>
                   </td>
                 </tr>
                 <tr *ngFor="let application of applications">
@@ -35,6 +36,9 @@
                   <td>{{ application.name }}</td>
                   <td>{{ application.team.name }}</td>
                   <td>{{ application.team.owner.emailAddress }}</td>
+                  <td>
+                      <a [routerLink]="['/application/edit/' + application.id]" class="btn btn-primary">Edit</a>
+                    </td>
                 </tr>
               </tbody>
             </table>

@@ -17,6 +17,7 @@ import { UserService } from './services/user.service';
 import { TeamEditRouteComponent } from './team-edit-route/team-edit-route.component';
 import { ApplicationCreateRouteComponent } from './application-create-route/application-create-route.component';
 import { ApplicationRouteComponent } from './application-route/application-route.component';
+import { ApplicationEditRouteComponent } from './application-edit-route/application-edit-route.component';
 
 const appRoutes: Routes = [
   {
@@ -29,6 +30,20 @@ const appRoutes: Routes = [
   {
     path: 'application',
     component: ApplicationRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
+    path: 'application/create',
+    component: ApplicationCreateRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
+    path: 'application/edit/:applicationId',
+    component: ApplicationEditRouteComponent,
     canActivate: [
       AuthGuard,
     ],
@@ -63,6 +78,7 @@ const appRoutes: Routes = [
     TeamEditRouteComponent,
     ApplicationCreateRouteComponent,
     ApplicationRouteComponent,
+    ApplicationEditRouteComponent,
   ],
   imports: [
     BrowserModule,
