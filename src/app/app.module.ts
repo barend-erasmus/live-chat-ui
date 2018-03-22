@@ -18,6 +18,7 @@ import { TeamEditRouteComponent } from './team-edit-route/team-edit-route.compon
 import { ApplicationCreateRouteComponent } from './application-create-route/application-create-route.component';
 import { ApplicationRouteComponent } from './application-route/application-route.component';
 import { ApplicationEditRouteComponent } from './application-edit-route/application-edit-route.component';
+import { ChatRouteComponent } from './chat-route/chat-route.component';
 
 const appRoutes: Routes = [
   {
@@ -79,6 +80,7 @@ const appRoutes: Routes = [
     ApplicationCreateRouteComponent,
     ApplicationRouteComponent,
     ApplicationEditRouteComponent,
+    ChatRouteComponent,
   ],
   imports: [
     BrowserModule,

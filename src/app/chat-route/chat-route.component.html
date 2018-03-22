@@ -1,0 +1,43 @@
+<app-side-menu></app-side-menu>
+
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Chats</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">List of chats</div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Session Id</th>
+                  <th>Application</th>
+                  <th>Chat Owner</th>
+                  <th># of Unread Messages</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let chats of chats">
+                  <td>{{ chat.id }}</td>
+                  <td>{{ chat.sessionId }}</td>
+                  <td>{{ chat.application.name }}</td>
+                  <td>{{ chat.owner.emailAddress }}</td>
+                  <td>{{ numberofUnreadMessages }}</td>
+                  <td>
+                      <a [routerLink]="['/chat/manage/' + chat.id]" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

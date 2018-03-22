@@ -22,7 +22,12 @@ export class ChatService extends BaseService {
     });
   }
 
+  public find(chatId: number): Observable<Chat> {
+    return this.get(`/chat?chatId=${chatId}`);
+  }
+
   public list(applicationId: number): Observable<Chat[]> {
     return this.get(`/chat?applicationId=${applicationId}`);
   }
+
 }
