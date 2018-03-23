@@ -45,7 +45,7 @@ export class ApplicationCreateRouteComponent extends BaseComponent implements On
 
   public onClickSave(): void {
     this.applicationService.create(this.application).subscribe((application: Application) => {
-      this.router.navigateByUrl(`/application/edit/${this.application.id}`);
+      this.router.navigateByUrl(`/application/edit/${application.id}`);
     }, (err: any) => {
       this.validationMessages = err.error;
     });

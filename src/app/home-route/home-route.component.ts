@@ -7,6 +7,7 @@ import { ApplicationService } from '../services/application.service';
 import { TeamService } from '../services/team.service';
 import { Team } from '../entities/team';
 import { Application } from '../entities/application';
+import { Event } from '../value-objects/event';
 
 @Component({
   selector: 'app-home-route',
@@ -24,21 +25,19 @@ export class HomeRouteComponent extends BaseComponent implements OnInit {
     userService: UserService,
   ) {
     super(userService);
-    // TODO
-    // this.loadChats();
-
-    // this.chatService.events().subscribe((event: Event) => this.handleEvent(event));
   }
 
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
+      this.loadChats();
 
+      this.chatService.events().subscribe((event: Event) => this.handleEvent(event));
     });
   }
 
   private handleEvent(event: Event): void {
     if (event.type === 'chat.message') {
-      this.loadChats();
+      // this.loadChats();
     }
   }
 
@@ -49,12 +48,13 @@ export class HomeRouteComponent extends BaseComponent implements OnInit {
       for (const team of teams) {
         this.applicationService.list(team.id).subscribe((applications: Application[]) => {
           for (const application of applications) {
-            this.chatService.list(application.id).subscribe((chats) => {
-              this.chats.concat(chats);
+            this.chatService.list(application.id).subscribe((chats: Chat[]) => {
+              this.chats = this.chats.concat(chats);
             });
           }
         });
       }
     });
   }
+
 }

@@ -120,8 +120,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let chat of chats">
-                                <td>{{ chat.application.name }}</td>
-                                <td>{{ chat.sessionId }}</td>
+                                <td><a [routerLink]="['/application/edit/' + chat.application.id]">{{ chat.application.name }}</a></td>
+                                <td><a [routerLink]="['/chat/manage/' + chat.id]">{{ chat.sessionId }}</a></td>
                                 <td>{{ chat.numberofUnreadMessages }}</td>
                                 <td>
                                     <p *ngFor="let item of chat.metaData">{{ item.name }}: {{ item.value }}</p>

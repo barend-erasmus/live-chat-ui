@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 import { BaseService } from './base.service';
 import { Event } from '../value-objects/event';
 import { Chat } from '../entities/chat';
@@ -8,8 +8,8 @@ import { Chat } from '../entities/chat';
 @Injectable()
 export class ChatService extends BaseService {
 
-  constructor() {
-    super(null);
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   public events(): Observable<Event> {
