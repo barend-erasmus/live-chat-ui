@@ -19,6 +19,7 @@ import { ApplicationCreateRouteComponent } from './application-create-route/appl
 import { ApplicationRouteComponent } from './application-route/application-route.component';
 import { ApplicationEditRouteComponent } from './application-edit-route/application-edit-route.component';
 import { ChatRouteComponent } from './chat-route/chat-route.component';
+import { ChatManageRouteComponent } from './chat-manage-route/chat-manage-route.component';
 
 const appRoutes: Routes = [
   {
@@ -45,6 +46,13 @@ const appRoutes: Routes = [
   {
     path: 'application/edit/:applicationId',
     component: ApplicationEditRouteComponent,
+    canActivate: [
+      AuthGuard,
+    ],
+  },
+  {
+    path: 'chat/manage/:chatId',
+    component: ChatManageRouteComponent,
     canActivate: [
       AuthGuard,
     ],
@@ -81,6 +89,7 @@ const appRoutes: Routes = [
     ApplicationRouteComponent,
     ApplicationEditRouteComponent,
     ChatRouteComponent,
+    ChatManageRouteComponent,
   ],
   imports: [
     BrowserModule,
