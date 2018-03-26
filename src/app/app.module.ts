@@ -20,6 +20,7 @@ import { ApplicationRouteComponent } from './application-route/application-route
 import { ApplicationEditRouteComponent } from './application-edit-route/application-edit-route.component';
 import { ChatRouteComponent } from './chat-route/chat-route.component';
 import { ChatManageRouteComponent } from './chat-manage-route/chat-manage-route.component';
+import { MessageService } from './services/message.service';
 
 const appRoutes: Routes = [
   {
@@ -102,6 +103,7 @@ const appRoutes: Routes = [
     ApplicationService,
     AuthGuard,
     ChatService,
+    MessageService,
     TeamService,
     UserService,
   ],

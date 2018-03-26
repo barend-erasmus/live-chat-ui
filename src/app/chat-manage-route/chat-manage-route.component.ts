@@ -5,6 +5,8 @@ import { ChatService } from '../services/chat.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Chat } from '../entities/chat';
 import { Message } from '../entities/message';
+import { ApplicationView } from '../entity-views/application';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-chat-manage-route',
@@ -13,13 +15,14 @@ import { Message } from '../entities/message';
 })
 export class ChatManageRouteComponent extends BaseComponent implements OnInit {
 
-  public chat: Chat = new Chat(null, null, null, null, null, null);
+  public chat: Chat = new Chat(new ApplicationView(null, null), null, null, null, null, null);
 
   public messages: Message[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
+    private messageService: MessageService,
     userService: UserService,
   ) {
     super(userService);
@@ -29,6 +32,8 @@ export class ChatManageRouteComponent extends BaseComponent implements OnInit {
     this.initialize().subscribe(() => {
       this.activatedRoute.params.subscribe((params: Params) => {
         this.loadChat(params['chatId']);
+
+        this.loadMessages(params['chatId']);
       });
     });
   }
@@ -36,6 +41,12 @@ export class ChatManageRouteComponent extends BaseComponent implements OnInit {
   private loadChat(chatId: number): void {
     this.chatService.find(chatId).subscribe((chat: Chat) => {
       this.chat = chat;
+    });
+  }
+
+  private loadMessages(chatId: number): void {
+    this.messageService.list(chatId).subscribe((messages: Message[]) => {
+      this.messages = messages;
     });
   }
 }
