@@ -7,6 +7,7 @@ import { Chat } from '../entities/chat';
 import { Message } from '../entities/message';
 import { ApplicationView } from '../entity-views/application';
 import { MessageService } from '../services/message.service';
+import { ChatView } from '../entity-views/chat';
 
 @Component({
   selector: 'app-chat-manage-route',
@@ -16,6 +17,8 @@ import { MessageService } from '../services/message.service';
 export class ChatManageRouteComponent extends BaseComponent implements OnInit {
 
   public chat: Chat = new Chat(new ApplicationView(null, null), null, null, null, null, null);
+
+  public message: Message = new Message(null, null, null, null, null);
 
   public messages: Message[] = [];
 
@@ -30,6 +33,8 @@ export class ChatManageRouteComponent extends BaseComponent implements OnInit {
 
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
+      this.message.sender = this.user.displayName;
+
       this.activatedRoute.params.subscribe((params: Params) => {
         this.loadChat(params['chatId']);
 
@@ -38,9 +43,17 @@ export class ChatManageRouteComponent extends BaseComponent implements OnInit {
     });
   }
 
+  public onClickSend(): void {
+    this.messageService.create(this.message).subscribe((message: Message) => {
+      this.message.text = null;
+    });
+  }
+
   private loadChat(chatId: number): void {
     this.chatService.find(chatId).subscribe((chat: Chat) => {
       this.chat = chat;
+
+      this.message.chat = new ChatView(chat.application, chat.id, chat.metaData, chat.owner, chat.sessionId);
     });
   }
 

@@ -11,6 +11,10 @@ export class MessageService extends BaseService {
     super(http);
   }
 
+  public create(message: Message): Observable<Message> {
+    return this.post(`/message`, message);
+  }
+
   public list(chatId: number): Observable<Message[]> {
     return this.get(`/message?chatId=${chatId}`);
   }

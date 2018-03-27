@@ -29,6 +29,11 @@
               <span>{{ message.sender }}</span>
               <p>{{ message.text }}</p>
             </div>
+            <div class="well">
+                <span>{{ user?.displayName }}</span>
+                <textarea [(ngModel)]="message.text" class="form-control"></textarea>
+                <button (click)="onClickSend()" class="btn btn-primary">Send</button>
+              </div>
         </div>
     </div>
 </div>
