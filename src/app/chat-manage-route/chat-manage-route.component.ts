@@ -38,7 +38,13 @@ export class ChatManageRouteComponent extends BaseComponent implements OnInit {
       this.activatedRoute.params.subscribe((params: Params) => {
         this.loadChat(params['chatId']);
 
-        this.loadMessages(params['chatId']);
+        setInterval(() => {
+          this.loadMessages(params['chatId']);
+        }, 2000);
+
+        setInterval(() => {
+          this.markAsRead();
+        }, 5000);
       });
     });
   }
@@ -61,5 +67,13 @@ export class ChatManageRouteComponent extends BaseComponent implements OnInit {
     this.messageService.list(chatId).subscribe((messages: Message[]) => {
       this.messages = messages;
     });
+  }
+
+  private markAsRead(): void {
+    if (this.messages.length > 0) {
+      this.chatService.markAsRead(this.chat.id, this.messages[0].timestamp).subscribe(() => {
+
+      });
+    }
   }
 }

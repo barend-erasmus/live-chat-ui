@@ -25,15 +25,20 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div *ngFor="let message of messages" class="well">
-              <span>{{ message.sender }}</span>
-              <p>{{ message.text }}</p>
-            </div>
             <div class="well">
                 <span>{{ user?.displayName }}</span>
+                <br />
+                <br />
                 <textarea [(ngModel)]="message.text" class="form-control"></textarea>
+                <br />
                 <button (click)="onClickSend()" class="btn btn-primary">Send</button>
-              </div>
+            </div>
+            <div *ngFor="let message of messages" class="well {{ message.sender == user?.displayName? 'text-right' : '' }}">
+                <span>{{ message.sender }} @ {{ message.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+                <br />
+                <br />
+                <p>{{ message.text }}</p>
+            </div>
         </div>
     </div>
 </div>

@@ -7,7 +7,6 @@ import { ApplicationService } from '../services/application.service';
 import { TeamService } from '../services/team.service';
 import { Team } from '../entities/team';
 import { Application } from '../entities/application';
-import { Event } from '../value-objects/event';
 
 @Component({
   selector: 'app-home-route',
@@ -30,15 +29,7 @@ export class HomeRouteComponent extends BaseComponent implements OnInit {
   public ngOnInit(): void {
     this.initialize().subscribe(() => {
       this.loadChats();
-
-      this.chatService.events().subscribe((event: Event) => this.handleEvent(event));
     });
-  }
-
-  private handleEvent(event: Event): void {
-    if (event.type === 'chat.message') {
-      // this.loadChats();
-    }
   }
 
   private loadChats(): void {
